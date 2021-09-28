@@ -1,0 +1,12 @@
+C:\Users\gk-89\RiderProjects\Rabbit.Calisma\RabbitLib\bin\Debug\net5.0\RabbitLib.deps.json
+C:\Users\gk-89\RiderProjects\Rabbit.Calisma\RabbitLib\bin\Debug\net5.0\RabbitLib.dll
+C:\Users\gk-89\RiderProjects\Rabbit.Calisma\RabbitLib\bin\Debug\net5.0\ref\RabbitLib.dll
+C:\Users\gk-89\RiderProjects\Rabbit.Calisma\RabbitLib\bin\Debug\net5.0\RabbitLib.pdb
+C:\Users\gk-89\RiderProjects\Rabbit.Calisma\RabbitLib\obj\Debug\net5.0\RabbitLib.csproj.AssemblyReference.cache
+C:\Users\gk-89\RiderProjects\Rabbit.Calisma\RabbitLib\obj\Debug\net5.0\RabbitLib.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\gk-89\RiderProjects\Rabbit.Calisma\RabbitLib\obj\Debug\net5.0\RabbitLib.AssemblyInfoInputs.cache
+C:\Users\gk-89\RiderProjects\Rabbit.Calisma\RabbitLib\obj\Debug\net5.0\RabbitLib.AssemblyInfo.cs
+C:\Users\gk-89\RiderProjects\Rabbit.Calisma\RabbitLib\obj\Debug\net5.0\RabbitLib.csproj.CoreCompileInputs.cache
+C:\Users\gk-89\RiderProjects\Rabbit.Calisma\RabbitLib\obj\Debug\net5.0\RabbitLib.dll
+C:\Users\gk-89\RiderProjects\Rabbit.Calisma\RabbitLib\obj\Debug\net5.0\ref\RabbitLib.dll
+C:\Users\gk-89\RiderProjects\Rabbit.Calisma\RabbitLib\obj\Debug\net5.0\RabbitLib.pdb

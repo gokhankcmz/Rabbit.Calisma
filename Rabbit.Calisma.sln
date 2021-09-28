@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabbitLib", "RabbitLib\RabbitLib.csproj", "{9C0E6F84-ADA3-4222-921A-52A897392299}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabbitWebApiProducer", "RabbitWebApiProducer\RabbitWebApiProducer.csproj", "{EADF39DE-361D-4264-AB38-39E875603905}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabbitWebApiConsumer", "RabbitWebApiConsumer\RabbitWebApiConsumer.csproj", "{DF062396-AE6A-4C75-A1CF-5DD8DBB56F09}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9C0E6F84-ADA3-4222-921A-52A897392299}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C0E6F84-ADA3-4222-921A-52A897392299}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C0E6F84-ADA3-4222-921A-52A897392299}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C0E6F84-ADA3-4222-921A-52A897392299}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EADF39DE-361D-4264-AB38-39E875603905}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EADF39DE-361D-4264-AB38-39E875603905}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EADF39DE-361D-4264-AB38-39E875603905}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EADF39DE-361D-4264-AB38-39E875603905}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF062396-AE6A-4C75-A1CF-5DD8DBB56F09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF062396-AE6A-4C75-A1CF-5DD8DBB56F09}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF062396-AE6A-4C75-A1CF-5DD8DBB56F09}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF062396-AE6A-4C75-A1CF-5DD8DBB56F09}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
