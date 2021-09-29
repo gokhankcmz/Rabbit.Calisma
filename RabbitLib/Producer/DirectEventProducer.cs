@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using Polly;
 using RabbitLib.Events;
 using RabbitLib.Utility;
+using RabbitMQ.Client;
 using RabbitMQ.Client.Exceptions;
 
 namespace RabbitLib.Producer
@@ -45,7 +46,7 @@ namespace RabbitLib.Producer
                 {
                     channel.ExchangeDeclare(
                         exchangeOptions.ExchangeName,
-                        type:"direct",
+                        type:ExchangeType.Direct,
                         exchangeOptions.Durable, exchangeOptions.AutoDelete,
                         exchangeOptions.Arguments);
                     exchangeName = exchangeOptions.ExchangeName;

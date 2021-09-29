@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using Polly;
 using RabbitLib.Events;
 using RabbitLib.Utility;
+using RabbitMQ.Client;
 using RabbitMQ.Client.Exceptions;
 
 namespace RabbitLib.Producer
@@ -24,7 +25,7 @@ namespace RabbitLib.Producer
             _retryCount = retryCount;
         }
 
-        public void Publish(EventBase eventBase, string routingPattern,QueueOptions queueOptions=null,
+        public void Publish(EventBase eventBase, string messageRoutingPattern,QueueOptions queueOptions=null,
             ExchangeOptions exchangeOptions = null)
         {
             if (!_persistentConnection.IsConnected) _persistentConnection.TryConnect();
@@ -39,22 +40,23 @@ namespace RabbitLib.Producer
                     });
             using (var channel = _persistentConnection.CreateModel())
             {
-                if (queueOptions!=null && queueOptions.NewQueue)
-                {
-                    channel.QueueDeclare(queueOptions.QueueName, queueOptions.Durable, queueOptions.Exclusive, queueOptions.AutoDelete, queueOptions.Arguments);   
-                }
                 
                 string exchangeName = "";
                 if (exchangeOptions != null)
                 {
                     channel.ExchangeDeclare(
                         exchangeOptions.ExchangeName,
-                        "topic",
+                        ExchangeType.Topic,
                         exchangeOptions.Durable, exchangeOptions.AutoDelete,
                         exchangeOptions.Arguments);
                     exchangeName = exchangeOptions.ExchangeName;
                 }
 
+                if (queueOptions!=null && queueOptions.NewQueue)
+                {
+                    channel.QueueDeclare(queueOptions.QueueName, queueOptions.Durable, queueOptions.Exclusive, queueOptions.AutoDelete, queueOptions.Arguments);
+                    channel.QueueBind(queueOptions.QueueName,exchangeName,arguments:null, routingKey:queueOptions.RoutingKey);
+                }
 
                 var message = JsonSerializer.Serialize(eventBase);
                 var body = Encoding.UTF8.GetBytes(message);
@@ -67,7 +69,7 @@ namespace RabbitLib.Producer
                     channel.BasicPublish(
                         
                         exchange: exchangeName,
-                        routingKey:routingPattern, 
+                        routingKey:messageRoutingPattern, 
                         mandatory:true,
                         basicProperties:properties,
                         body);

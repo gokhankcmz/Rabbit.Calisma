@@ -23,7 +23,7 @@ namespace RabbitLib.Producer
     }
     public interface ITopicEventProducer
     {
-        void Publish(EventBase eventBase, string routingPattern,QueueOptions queueOptions=null,
+        void Publish(EventBase eventBase, string messageRoutingPattern,QueueOptions queueOptions=null,
             ExchangeOptions exchangeOptions = null);
     }
 }

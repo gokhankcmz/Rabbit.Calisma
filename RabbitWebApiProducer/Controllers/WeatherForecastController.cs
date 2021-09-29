@@ -34,38 +34,70 @@ namespace RabbitWebApiProducer.Controllers
         {
             var rng = new Random();
 
-            var queueOptions = new QueueOptions
+            var queue = new QueueOptions
             {
                 NewQueue = true,
+                RoutingKey = "Queue",
                 Arguments = null,
                 Durable = false,
                 Exclusive = false,
                 AutoDelete = false,
-                QueueName = "BindedQueue"
+                QueueName = "Queue"
             };
             
-            var exchangeOptions = new ExchangeOptions()
+            var Queue2 = new QueueOptions
+            {
+                NewQueue = true,
+                RoutingKey = "Queue.*",
+                Arguments = null,
+                Durable = false,
+                Exclusive = false,
+                AutoDelete = false,
+                QueueName = "Queue2"
+            };
+            
+            var Queue3 = new QueueOptions
+            {
+                NewQueue = true,
+                RoutingKey = "Queue.3",
+                Arguments = null,
+                Durable = false,
+                Exclusive = false,
+                AutoDelete = false,
+                QueueName = "Queue3"
+            };
+            
+            var DirectExchange = new ExchangeOptions()
             {
                 Arguments = null,
                 Durable = false,
                 AutoDelete = false,
-                ExchangeName = "TestExchange"
+                ExchangeName = "CustomDirectExchange"
             };
             
+            var TopicExchange = new ExchangeOptions()
+            {
+                Arguments = null,
+                Durable = false,
+                AutoDelete = false,
+                ExchangeName = "CustomTopicExchange"
+            };
             
-            _producer.DirectEventProducer.Publish(queueOptions, new OrderCreateEvent(){orderId = 1}, exchangeOptions);
+            var FanoutExchange = new ExchangeOptions()
+            {
+                Arguments = null,
+                Durable = false,
+                AutoDelete = false,
+                ExchangeName = "CustomFanoutExchange"
+            };
+            
+            _producer.DirectEventProducer.Publish(queue, new OrderCreateEvent(){orderId = 1}, DirectExchange);
+            _producer.TopicEventProducer.Publish(new OrderCreateEvent{orderId = 3}, "Queue.*", Queue2, TopicExchange);
+            _producer.TopicEventProducer.Publish(new OrderCreateEvent{orderId = 3}, "Queue.3", Queue3, TopicExchange);
 
-            queueOptions.QueueName = "NonBindedQueue";
-            queueOptions.NewQueue = true;
-            //_producer.FanoutEventProducer.Publish(new OrderCreateEvent(){orderId = 2}, queueOptions, exchangeOptions);
-            // This will result in error: RabbitMQ.Client.Exceptions.OperationInterruptedException: The AMQP operation was interrupted: AMQP close-reason, initiated by Peer, code=406, text='PRECONDITION_FAILED - inequivalent arg 'type' for exchange 'TestExchange' in vhost '/': received 'fanout' but current is 'direct'', classId=40, methodId=10
-           
-            // we need to change the exchange option.
-            exchangeOptions.ExchangeName = "NewExchange";
-            _producer.FanoutEventProducer.Publish(new OrderCreateEvent(){orderId = 2}, queueOptions, exchangeOptions);
-            
-            // or not supply a exchangeoption to use defult.
-            _producer.TopicEventProducer.Publish(new OrderCreateEvent{orderId = 3}, "Test*", queueOptions);
+
+            _producer.FanoutEventProducer.Publish(new OrderCreateEvent(){orderId = 2}, Queue2, FanoutExchange);
+            _producer.FanoutEventProducer.Publish(new OrderCreateEvent(){orderId = 2}, Queue3,FanoutExchange);
             
             
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast

@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using Polly;
 using RabbitLib.Events;
 using RabbitLib.Utility;
+using RabbitMQ.Client;
 using RabbitMQ.Client.Exceptions;
 
 namespace RabbitLib.Producer
@@ -40,21 +41,22 @@ namespace RabbitLib.Producer
             
             using (var channel = _persistentConnection.CreateModel())
             {
-                if (queueOptions!=null && queueOptions.NewQueue)
-                {
-                    channel.QueueDeclare(queueOptions.QueueName, queueOptions.Durable, queueOptions.Exclusive, queueOptions.AutoDelete, queueOptions.Arguments);   
-                }
                 string exchangeName = "";
                 if (exchangeOptions != null)
                 {
                     channel.ExchangeDeclare(
                         exchangeOptions.ExchangeName,
-                        type:"fanout",
+                        type:ExchangeType.Fanout,
                         exchangeOptions.Durable, exchangeOptions.AutoDelete,
                         exchangeOptions.Arguments);
                     exchangeName = exchangeOptions.ExchangeName;
                 }
 
+                if (queueOptions!=null && queueOptions.NewQueue)
+                {
+                    channel.QueueDeclare(queueOptions.QueueName, queueOptions.Durable, queueOptions.Exclusive, queueOptions.AutoDelete, queueOptions.Arguments);
+                    channel.QueueBind(queueOptions.QueueName,exchangeName,arguments:null, routingKey:queueOptions.RoutingKey);
+                }
 
                 var message = JsonSerializer.Serialize(eventBase);
                 var body = Encoding.UTF8.GetBytes(message);
